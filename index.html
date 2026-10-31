@@ -1,778 +1,651 @@
+<!doctype html>
+<html dir="rtl" lang="he">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chamber Next Gen Plan</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<title>Chamber: one session</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%226%22 fill=%22none%22 stroke=%22%236A55C8%22 stroke-width=%221.5%22/%3E%3Ccircle cx=%228%22 cy=%228%22 r=%222%22 fill=%22%236A55C8%22/%3E%3C/svg%3E">
+<meta name="description" content="Chamber Next Gen, plan v1.3: one session, minute by minute, in Hebrew and English.">
 <style>
-:root{
-  --paper:#F4F6F7;
-  --surface:#FFFFFF;
-  --ink:#172026;
-  --muted:#56636B;
-  --rule:#D6DDE0;
-  --accent:#1D6B66;
-  --accent-soft:#E2EFED;
-  --closed:#8A5A00;
-  --closed-soft:#FBF0D9;
-  --done:#2D7448;
-  --done-soft:#E3F1E7;
-  --defer:#5C6670;
-  --defer-soft:#E9ECEE;
-  --quote:#0F4F4A;
-  --serif:"Source Serif 4","Iowan Old Style",Georgia,"Times New Roman",serif;
-  --sans:"IBM Plex Sans","IBM Plex Sans Hebrew",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --he:"IBM Plex Sans Hebrew","IBM Plex Sans","Arial Hebrew","Segoe UI",Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+:root {
+  --bg: #F1EEF7;
+  --bg-deep: #E6E1F1;
+  --ink: #221C3B;
+  --muted: #5E5780;
+  --faint: #8C85A8;
+  --line: #CFC8E2;
+  --arc-a: #6A55C8;
+  --arc-b: #B0457F;
+  --arc-c: #A47B1E;
+  --glow: rgba(106, 85, 200, 0.28);
+  --glow-2: rgba(176, 69, 127, 0.14);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --paper:#111619;
-    --surface:#182025;
-    --ink:#E3E9EB;
-    --muted:#98A6AD;
-    --rule:#2A353B;
-    --accent:#67C2B9;
-    --accent-soft:#16302E;
-    --closed:#E8B65A;
-    --closed-soft:#352914;
-    --done:#7ACB95;
-    --done-soft:#17301F;
-    --defer:#A7B1B8;
-    --defer-soft:#232B30;
-    --quote:#9FDCD5;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1630;
+    --bg-deep: #221D3E;
+    --ink: #ECE7F6;
+    --muted: #A59EC4;
+    --faint: #7D769E;
+    --line: #3B3460;
+    --arc-a: #9C8BEB;
+    --arc-b: #E08BBE;
+    --arc-c: #E9C47E;
+    --glow: rgba(156, 139, 235, 0.32);
+    --glow-2: rgba(224, 139, 190, 0.16);
   }
 }
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --paper:#111619;
-  --surface:#182025;
-  --ink:#E3E9EB;
-  --muted:#98A6AD;
-  --rule:#2A353B;
-  --accent:#67C2B9;
-  --accent-soft:#16302E;
-  --closed:#E8B65A;
-  --closed-soft:#352914;
-  --done:#7ACB95;
-  --done-soft:#17301F;
-  --defer:#A7B1B8;
-  --defer-soft:#232B30;
-  --quote:#9FDCD5;
+:root[data-theme="dark"] {
+  --bg: #1A1630;
+  --bg-deep: #221D3E;
+  --ink: #ECE7F6;
+  --muted: #A59EC4;
+  --faint: #7D769E;
+  --line: #3B3460;
+  --arc-a: #9C8BEB;
+  --arc-b: #E08BBE;
+  --arc-c: #E9C47E;
+  --glow: rgba(156, 139, 235, 0.32);
+  --glow-2: rgba(224, 139, 190, 0.16);
 }
-*{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65;-webkit-text-size-adjust:100%}
-.page{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
-@media (min-width:1000px){
-  .page{grid-template-columns:240px minmax(0,1fr);gap:48px;padding-inline:32px}
-  .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;max-height:calc(100vh - 32px);overflow:auto}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Frank Ruhl Libre", "Noto Serif Hebrew", "New Peninim MT", "Times New Roman", "David", serif;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-weight: 400;
+  overflow-wrap: break-word;
 }
-main{min-width:0;display:grid;gap:56px}
-a{color:var(--accent);text-underline-offset:2px}
-a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
-h1,h2,h3,h4{font-family:var(--sans);line-height:1.25;text-wrap:balance;margin:0}
-h1{font-size:2rem;font-weight:700;letter-spacing:-.01em}
-h2{font-size:1.45rem;font-weight:600;padding-top:8px;border-top:1px solid var(--rule)}
-h3{font-size:1.12rem;font-weight:600}
-h4{font-size:1rem;font-weight:600}
-p,ul,ol{margin:0}
-.flow{display:grid;gap:14px}
-.measure{max-width:68ch}
-ul,ol{padding-inline-start:1.3em;display:grid;gap:6px}
-li::marker{color:var(--muted)}
-.eyebrow{font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.id,code{font-family:var(--mono);font-size:.82em;letter-spacing:0;white-space:nowrap}
-.id{color:var(--muted)}
-.note{font-family:var(--sans);font-size:.88rem;color:var(--muted);line-height:1.55}
-q,.q{font-family:var(--he);color:var(--quote);quotes:"\201C" "\201D"}
-.he q,.he .q{quotes:"\201D" "\201C"}
-del{color:var(--muted);text-decoration-thickness:1px}
-
-/* TOC */
-.toc{font-family:var(--sans);font-size:.9rem;line-height:1.4}
-.toc summary{cursor:pointer;font-weight:600;padding-block:8px;list-style:none;display:flex;justify-content:space-between;align-items:center}
-.toc summary::-webkit-details-marker{display:none}
-.toc summary::after{content:"+";color:var(--muted);font-weight:400}
-.toc[open] summary::after{content:"\2212"}
-.toc nav{display:grid;gap:14px;padding-block:8px 4px}
-.toc ol{list-style:none;padding:0;gap:2px}
-.toc ol ol{padding-inline-start:12px;margin-block:2px 4px}
-.toc a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:5px}
-.toc a:hover{background:var(--accent-soft)}
-.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
-.toc .grp{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-inline:8px}
-.toc .he-link{font-family:var(--he)}
-@media (max-width:999px){.toc{border:1px solid var(--rule);border-radius:8px;background:var(--surface);padding-inline:14px}}
-
-/* header */
-.mast{display:grid;gap:10px}
-.mast p{font-family:var(--sans);color:var(--muted);font-size:.95rem;max-width:70ch}
-
-/* Hebrew part */
-.he{font-family:var(--he);font-size:17px;line-height:1.8}
-.he h2,.he h3,.he h4{font-family:var(--he)}
-.he h2{border-top:0;padding-top:0}
-.brief{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:clamp(18px,3.5vw,36px);display:grid;gap:34px}
-.brief section{display:grid;gap:12px}
-.ask{border-inline-start:3px solid var(--accent);padding-inline-start:14px;color:var(--muted)}
-.invariants{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;list-style:none;padding:0}
-.invariants li{border:1px solid var(--rule);border-radius:8px;padding:10px 14px;display:grid;gap:2px}
-.invariants b{font-family:var(--mono);font-size:.82rem;color:var(--accent);font-weight:500}
-
-.arc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.phase{border:1px solid var(--rule);border-radius:8px;padding:14px 16px;display:grid;gap:6px;align-content:start}
-.phase h4{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
-.phase h4 small{font-family:var(--sans);font-weight:400;font-size:.8rem;color:var(--muted)}
-.edges{overflow-x:auto}
-.edges svg{display:block;width:100%;max-width:560px;height:auto}
-.edges text{font-family:var(--sans);font-size:13px;fill:var(--ink)}
-.edges .lab{fill:var(--muted);font-size:11.5px}
-
-.status-grid{display:grid;gap:10px}
-.row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:start;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;background:var(--surface)}
-.row .body{display:grid;gap:4px}
-.pill{font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:999px;white-space:nowrap;justify-self:start;margin-top:3px}
-.pill.closed{color:var(--closed);background:var(--closed-soft)}
-.pill.done{color:var(--done);background:var(--done-soft)}
-.pill.defer{color:var(--defer);background:var(--defer-soft)}
-.pill.open{color:var(--accent);background:var(--accent-soft)}
-.row.key{border-color:var(--closed);border-width:1.5px}
-.pos{font-size:.93em;color:var(--muted)}
-.pos q{color:var(--quote)}
-
-.tension{display:grid;gap:8px;border-top:1px solid var(--rule);padding-top:14px}
-.tension h4 .tag{font-family:var(--mono);font-size:.8rem;color:var(--accent);font-weight:500}
-
-/* English plan */
-.plan{display:grid;gap:44px}
-.plan section{display:grid;gap:16px}
-.plan .lead{font-size:1.05rem}
-.meta{display:grid;gap:8px;font-family:var(--sans);font-size:.95rem;border:1px solid var(--rule);border-radius:10px;padding:16px 18px;background:var(--surface)}
-.meta p{max-width:none}
-.meta strong{font-weight:600}
-.inv{list-style:none;padding:0;display:grid;gap:6px}
-.inv li{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
-.inv b{font-family:var(--mono);font-weight:500;font-size:.85rem;color:var(--accent);min-width:6.5em}
-.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:640px;font-family:var(--sans);font-size:.9rem;line-height:1.5}
-th,td{text-align:start;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--rule)}
-th{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-tr:last-child td{border-bottom:0}
-td:first-child{width:38%}
-.spikes{list-style:none;padding:0;display:grid;gap:12px}
-.spikes>li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:12px;align-items:baseline}
-.spikes>li>b{font-family:var(--mono);font-weight:500;font-size:.88rem;color:var(--accent)}
-.spikes .what{display:grid;gap:6px}
-.spikes .name{font-family:var(--sans);font-weight:600}
-.kill{font-family:var(--sans);font-size:.92rem}
-.kill em{font-style:normal;font-weight:600;color:var(--closed)}
-.pass em{font-style:normal;font-weight:600;color:var(--done)}
-.prec{border-inline-start:2px solid var(--rule);padding-inline-start:14px;display:grid;gap:6px;font-size:.95rem}
-.prec .eyebrow{font-size:.7rem}
-.proposed{border:1px dashed var(--accent);border-radius:8px;padding:12px 14px}
-.door{display:grid;gap:8px;border:1px solid var(--rule);border-radius:8px;padding:14px 16px;background:var(--surface)}
-.door h4{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
-.door .pos{font-family:var(--sans)}
-.steps{counter-reset:none}
-.foot{font-family:var(--sans);font-size:.85rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;display:grid;gap:6px}
-@media (max-width:520px){
-  body{font-size:16.5px}
-  h1{font-size:1.65rem}
-  .spikes>li{grid-template-columns:minmax(0,1fr);gap:2px}
-  .row{grid-template-columns:minmax(0,1fr)}
+.en {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  font-weight: 400;
 }
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-[id]{scroll-margin-top:16px}
+.wrap {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--arc-a); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- opening: the dark, breathing screen ---------- */
+.threshold {
+  position: relative;
+  padding: 4.5rem 0 2.5rem;
+  overflow: hidden;
+}
+.breath {
+  position: absolute;
+  inset-inline: 0;
+  top: -6rem;
+  margin: 0 auto;
+  width: 22rem;
+  height: 22rem;
+  max-width: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, var(--glow), transparent 70%),
+    radial-gradient(closest-side at 60% 60%, var(--glow-2), transparent 80%);
+  animation: breathe 9s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(0.82); opacity: 0.65; }
+  45% { transform: scale(1.08); opacity: 1; }
+}
+.threshold .wrap { position: relative; }
+.kicker {
+  margin: 0 0 1.75rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+}
+h1 {
+  margin: 0;
+  font-weight: 300;
+  font-size: clamp(2.25rem, 9vw, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+h1 .he-sub { display: block; font-weight: 500; }
+.h1-en {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+}
+.lede { margin: 2rem 0 0; }
+.lede p { margin: 0; }
+.lede .en { margin-top: 0.5rem; }
+
+/* ---------- the three layers (legend for the glyphs) ---------- */
+.layers {
+  margin: 2.5rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--line);
+}
+.layers h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.layers h2 .en { display: block; font-size: 0.875rem; }
+.layers ul { list-style: none; margin: 0; padding: 0; }
+.layers li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  column-gap: 0.75rem;
+  margin: 0 0 1.125rem;
+}
+.layers li > .g { margin-top: 0.55rem; }
+.layers b { font-weight: 700; }
+
+/* glyphs: reflex = a dot, quick voice = a ring, mind = a ring around a dot */
+.g {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  flex: none;
+}
+.g0 { background: var(--arc-a); transform: scale(0.62); }
+.g1 { border: 1.5px solid var(--arc-b); }
+.g2 {
+  border: 1.5px solid var(--arc-a);
+  background: radial-gradient(circle, var(--arc-a) 0 28%, transparent 32%);
+}
+
+/* ---------- the timeline ---------- */
+.session { padding: 2rem 0 1rem; }
+.timeline {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: 1.75rem;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.3125rem;
+  top: 0.9rem;
+  bottom: 1rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--arc-a) 0%, var(--arc-a) 22%, var(--arc-b) 58%, var(--arc-b) 70%, var(--arc-c) 100%);
+  opacity: 0.85;
+}
+.stop {
+  position: relative;
+  padding: 0 0 2.75rem;
+}
+.stop::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1.75rem;
+  top: 0.55rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--c, var(--arc-a));
+}
+.stop[data-c="b"] { --c: var(--arc-b); }
+.stop[data-c="c"] { --c: var(--arc-c); }
+.time {
+  display: block;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: right;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  font-weight: 300;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--c, var(--arc-a));
+  letter-spacing: 0.01em;
+}
+.stop h3 {
+  margin: 0.375rem 0 0;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.stop h3 .en { display: block; font-size: 0.875rem; font-weight: 500; margin-top: 0.125rem; }
+.stop > p { margin: 0.75rem 0 0; }
+.stop > p.en { margin-top: 0.375rem; }
+
+.acts { list-style: none; margin: 1rem 0 0; padding: 0; }
+.acts li {
+  margin: 0 0 0.875rem;
+  padding-inline-start: 0.875rem;
+  border-inline-start: 1px solid var(--line);
+}
+.who {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-inline-end: 0.25rem;
+}
+.acts .he { margin: 0; }
+.acts .en { margin: 0.25rem 0 0; }
+.acts .en .who { font-size: 0.8125rem; font-family: inherit; }
+
+/* the stop that can happen at any moment: hollow, dashed node, off the clock */
+.stop.anytime::before {
+  border-style: dashed;
+  background: transparent;
+  width: 0.875rem;
+  height: 0.875rem;
+  inset-inline-start: -1.8125rem;
+}
+.stop.anytime .time { font-size: 1.125rem; font-style: italic; font-weight: 400; }
+.stop.anytime .inner {
+  background: var(--bg-deep);
+  border-radius: 14px 4px 14px 14px;
+  padding: 1rem 1rem 0.25rem;
+  margin-top: 0.5rem;
+}
+.stop.anytime .inner > p { margin: 0; }
+.stop.anytime .inner > p.en { margin-top: 0.375rem; }
+.stop.anytime .acts li { border-inline-start-color: var(--faint); }
+
+.stop:last-child { padding-bottom: 0.5rem; }
+
+/* ---------- around the session ---------- */
+.around { padding: 2rem 0 0; }
+.around section {
+  padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid var(--line);
+}
+.around h2, .brief h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.around h2 .en, .brief h2 .en { display: block; font-size: 0.875rem; font-weight: 500; }
+.around h2 .note { display: block; font-size: 0.9375rem; font-weight: 400; color: var(--muted); }
+.around p { margin: 0 0 0.25rem; }
+.around p.en { margin: 0 0 1rem; }
+.keys kbd {
+  font-family: inherit;
+  font-size: 0.85em;
+  padding: 0 0.35em;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+.first-step {
+  margin-top: 1rem;
+  padding: 1.25rem 1rem 0.75rem;
+  border-top: none !important;
+  border-radius: 4px 18px 18px 18px;
+  background: linear-gradient(160deg, var(--bg-deep), var(--bg));
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* ---------- the plan in brief (English source) ---------- */
+.brief {
+  margin-top: 3.5rem;
+  padding: 2rem 0 1rem;
+  border-top: 2px solid var(--line);
+}
+.brief .body {
+  direction: ltr;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.9688rem;
+  line-height: 1.6;
+}
+.brief h3 {
+  margin: 1.75rem 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+.brief p { margin: 0 0 0.75rem; }
+.brief ul { margin: 0 0 0.75rem; padding-left: 1.125rem; }
+.brief li { margin: 0 0 0.4rem; }
+.brief li::marker { color: var(--faint); }
+.steps { list-style: none; padding: 0 !important; margin: 0; counter-reset: s 0; }
+.steps > li {
+  counter-increment: s;
+  position: relative;
+  padding: 0 0 0.5rem 2.25rem;
+  margin: 0 0 1.25rem;
+}
+.steps > li::before {
+  content: counter(s);
+  position: absolute;
+  left: 0;
+  top: -0.2rem;
+  font-family: "Noto Serif Hebrew", "Times New Roman", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--arc-a);
+}
+.steps h4 { margin: 0 0 0.375rem; font-size: 1rem; font-weight: 600; }
+.steps ul { padding-left: 1rem; }
+.he-quote {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+  display: block;
+  font-family: "Frank Ruhl Libre", "Noto Serif Hebrew", "New Peninim MT", "Times New Roman", serif;
+  font-size: 1.0625rem;
+  color: var(--ink);
+  margin: 0.25rem 0;
+}
+dl.doors { margin: 0.5rem 0 0; }
+.doors div {
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--line);
+}
+.doors div:last-child { border-bottom: 1px solid var(--line); }
+.doors dt { font-weight: 600; margin: 0 0 0.125rem; }
+.doors dd { margin: 0; color: var(--muted); }
+
+footer {
+  padding: 3rem 0 3.5rem;
+  text-align: center;
+}
+footer a {
+  font-size: 0.8125rem;
+  color: var(--faint);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+}
+footer a:hover { color: var(--muted); }
+
+@media (min-width: 720px) {
+  body { font-size: 1.1875rem; }
+  .threshold { padding-top: 6rem; }
+  .breath { width: 30rem; height: 30rem; top: -9rem; }
+  .time { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .breath { animation: none; transform: scale(1); opacity: 0.9; }
+}
 </style>
+</head>
+<body>
 
-<div class="page">
+<header class="threshold">
+  <div class="breath" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker en">Chamber Next Gen, plan v1.3</p>
+    <h1>צ'יימבר:<span class="he-sub">סשן אחד, דקה אחר דקה</span></h1>
+    <p class="h1-en en">Chamber: one session, minute by minute</p>
 
-<details class="toc" id="toc" open>
-  <summary>Contents · תוכן</summary>
-  <nav aria-label="Table of contents">
-    <div class="grp">עברית</div>
-    <ol dir="rtl" class="he-link">
-      <li><a href="#he-what">מה התכנית</a></li>
-      <li><a href="#he-phases">שלושת השלבים</a></li>
-      <li><a href="#he-open">מה מוצע, מה נענה, מה פתוח</a></li>
-      <li><a href="#he-gate">סטטוס השער</a></li>
-    </ol>
-    <div class="grp">Full plan (English)</div>
-    <ol>
-      <li><a href="#status">Status and sign-off</a></li>
-      <li><a href="#s1">1. What we are building</a></li>
-      <li><a href="#s2">2. What we propose</a></li>
-      <li><a href="#s3">3. Gaps</a></li>
-      <li><a href="#s4">4. How it gets built</a>
-        <ol>
-          <li><a href="#s4-step0">Step 0: spikes</a></li>
-          <li><a href="#s4-reconcile">Deciding experiments X5–X10</a></li>
-          <li><a href="#s4-ext">Extensions</a></li>
-          <li><a href="#s4-steps">Steps 1–3</a></li>
-        </ol>
-      </li>
-      <li><a href="#s5">5. The short feedback loop</a></li>
-      <li><a href="#s6">6. One-way doors</a></li>
-      <li><a href="#s7">7. Top risks</a></li>
-      <li><a href="#s8">8. How you can watch it</a></li>
-    </ol>
-  </nav>
-</details>
+    <div class="lede">
+      <p>אדם אחד, חדר אחד, בלי מנחה. החדר עצמו מוביל: הוא רואה את הגוף, מנגן אותו, מדבר ומציג תמונות. סשן נמשך <bdi dir="ltr">15–30</bdi> דקות. אין טריגרים קבועים: החדר מחליט בכל רגע מה נכון עכשיו.</p>
+      <p class="en">One person, one room, no facilitator. The room itself leads: it sees the body, plays it, speaks and shows images. A session runs 15–30 minutes. There are no fixed triggers; the room decides, moment by moment, what fits now.</p>
+    </div>
 
-<main>
-
-<header class="mast">
-  <div class="eyebrow">Chamber Next Gen · PLAN v1 (v1.1 note) · 2026-10-31</div>
-  <h1>Chamber Next Gen Plan</h1>
-  <p>A reading view of the plan. Hebrew summary first, then the full plan in its original English. Nothing on this page approves anything.</p>
+    <section class="layers" aria-labelledby="layers-h">
+      <h2 id="layers-h">שלוש שכבות מחליטות<span class="en">Three layers decide</span></h2>
+      <ul>
+        <li><span class="g g0" aria-hidden="true"></span><div>
+          <p style="margin:0"><b>רפלקס (L0):</b> קוד, בכל פריים. תנועה הופכת לצליל מיד, בלי לחכות לשום מודל.</p>
+          <p class="en" style="margin:0.25rem 0 0"><b>Reflex (L0):</b> code, every frame. Movement becomes sound at once, never waiting on a model.</p>
+        </div></li>
+        <li><span class="g g1" aria-hidden="true"></span><div>
+          <p style="margin:0"><b>הקול המהיר (L1):</b> מדבר עכשיו, מתוך מה שהמוח כבר הכין.</p>
+          <p class="en" style="margin:0.25rem 0 0"><b>The quick voice (L1):</b> speaks now, from what the mind has already prepared.</p>
+        </div></li>
+        <li><span class="g g2" aria-hidden="true"></span><div>
+          <p style="margin:0"><b>המוח (L2):</b> חושב, בוחר את הצעד הבא, ומכוון את הרפלקס. כל החלטה שלו נגמרת בהמתנה קצרה, שנייה עד עשר, ואז הוא מתעורר שוב.</p>
+          <p class="en" style="margin:0.25rem 0 0"><b>The mind (L2):</b> thinks, picks the next act, and re-tunes the reflex. Every decision ends in a short wait, one to ten seconds, and then it wakes again.</p>
+        </div></li>
+      </ul>
+    </section>
+  </div>
 </header>
 
-<!-- ============ HEBREW SUMMARY ============ -->
-<div class="he brief" dir="rtl" lang="he">
+<main>
+<section class="session" aria-label="הסשן / The session">
+  <div class="wrap">
+  <ol class="timeline">
 
-  <section id="he-what">
-    <p class="ask">גוני, ביקשת: <q>כשהתכנית מוכנה אתה יכול לתת לי לינק לתצוגה נוחה לקריאה של התכנית?</q> <bdi class="id">3AD17771</bdi></p>
-    <h2>מה התכנית</h2>
-    <p class="measure">Chamber הוא חדר שרואה אדם אחד לבד ומשחק איתו <bdi>15–30</bdi> דקות. האדם זז, והסאונד והתמונה עונים כאילו הם הגוף שלו. קול אחד, הרוח שבחדר, מוביל אותו לשחרור, ואף פעם לא מבטיח משהו שהחדר לא עושה מיד אחר כך. הקול מסיק מרמזים ולא שואל ישירות איך להיפתח, ושומע בקשה בלי שהאדם יהיה אי פעם במצב פקודה.</p>
-    <ul class="invariants">
-      <li><b dir="ltr">I-PLAY</b>הגוף מנגן את הסאונד.</li>
-      <li><b dir="ltr">I-SAY-DO</b>כל הבטחה שנאמרת מתבצעת.</li>
-      <li><b dir="ltr">I-SEE</b>החדר תמיד רואה את האדם בחדות.</li>
-    </ul>
-    <h3>איך זה בנוי (מוצע, ממתין לשער)</h3>
-    <ul class="measure">
-      <li>שלושה תהליכים: ליבת זמן-אמת ב-<bdi>Rust</bdi> (גוף ← סאונד, הכל בקוד, בלי לחכות למודל), תהליך מצלמה ותנוחה (כך שמצלמה תקועה לא משתיקה את הסאונד), ומוח ב-<bdi>Python</bdi>. הליבה משגיחה על שניהם.</li>
-      <li>שלוש לולאות, לפי מערכת "הפה והמיני-פה" של תמי: <bdi dir="ltr">L0</bdi> רפלקס בכל פריים; <bdi dir="ltr">L1</bdi> "מיני-פה" שמדבר עכשיו; <bdi dir="ltr">L2</bdi> "פה" שחושב ומכוונן את <bdi dir="ltr">L0</bdi>. קול אחד, בלי צוות יועצים.</li>
-      <li>רץ על שלושת המחשבים (המק, הלפטופ, הדסקטופ) עם המצלמות הקיימות. המק הוא מחשב הפיתוח, לא היעד. בדיקת היכולת קובעת לכל מחשב את הדרג שלו; G2-LAN נשארת סגורה (העמדה של גוני: מחשב GPU אחד).</li>
-      <li>פרטיות: כברירת מחדל שום דבר לא יוצא מהמחשב.</li>
-      <li>מערכת חיה מהיום הראשון: ריפוי עצמי, לוג ומעקב, סוכני השגחה על השהיות, ושיפור עצמי שמתבצע רק בין סשנים ונכנס רק אם ניצח בכרטיס הציונים.</li>
-    </ul>
-    <h3>אחרי השער</h3>
-    <ul class="measure">
-      <li>צעד 0: ניסויי "להרוג או לאשר" במקביל, כל אחד עד 3 שעות. ניסוי שנכשל עובר לחלופה שכבר כתובה לידו.</li>
-      <li>צעד 1: הדבר הראשון שאפשר לנגן, בתוך שעות מהשער. היד זזה, צליל פד משתנה. בלי מודל ובלי קול.</li>
-      <li>צעד 2: השלד ההולך, הרגע המתוסרט: <bdi dir="ltr" lang="en">"Now we'll hear a sound ⟨chime⟩. Now move your fingertips ⟨spread → filter⟩. That's you."</bdi></li>
-      <li>צעד 3: שכבות לפי סדר: הקשבה, התפרצות לדיבור, שכבת התמונה, שלבים וחשיבת <bdi dir="ltr">L2</bdi>, עולמות סאונד, מודל החוט, החלומות, הקונסולה.</li>
-      <li>כל בנייה: כרטיס ציונים לכל מחשב, ואתה מנגן ואומר אם זה טוב או גרוע מ-Chamber הישן ולמה. המשפט שלך נשמר מילה במילה ליד המספרים.</li>
-    </ul>
-  </section>
-
-  <section id="he-phases">
-    <h2>שלושת השלבים: אינטרו, אינאקטמנט, אינטגרציה</h2>
-    <p class="measure">אמרת שאלה רעיונות חשובים מאוד מ-Chamber המקורי: <q>אינטרו, אינאקטמנט ואינטגריישן</q>, ושצריך <q>מעבר חלק בין פייזים</q> <bdi class="id">3A918E2B</bdi>. התכנית מאמצת את שלושתם (ההחלטה המלאה ב-<bdi dir="ltr">ADR §16</bdi>; כמו כל השאר, ממתינה לשער).</p>
-    <div class="arc">
-      <div class="phase">
-        <h4>אינטרו <small dir="ltr">intro / Orientation</small></h4>
-        <p>המילים מזמינות זרימה ושחרור, בסגנון של הקול. מלמד בהזמנה, אף פעם לא בשאלה ישירה על היפתחות. הולך אחרי הפתיחה של האדם עצמו.</p>
-      </div>
-      <div class="phase">
-        <h4>אינאקטמנט <small dir="ltr">enactment</small></h4>
-        <p><bdi dir="ltr">L2</bdi> מציע דימויים מוזרים וארכיטיפיים וחידות פנימיות שעולים מהמילים של האדם. המילים "פסיכדלי" ו"טריפ" לא נאמרות לעולם.</p>
-      </div>
-      <div class="phase">
-        <h4>אינטגרציה <small dir="ltr">integration</small></h4>
-        <p>אפשר להגיע אליה מהאינטרו או מהאינאקטמנט, ומשם לחזור לאינאקטמנט. במערכת הישנה היציאה מאינאקטמנט קרתה לפי רצון האדם (ראו 5ב למטה).</p>
-      </div>
-    </div>
-    <div class="edges" dir="ltr">
-      <svg viewBox="0 0 560 150" role="img" aria-label="Phase edges: intro to enactment, intro to integration, enactment to and from integration, no return to intro">
-        <defs>
-          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" style="fill:var(--accent)"/></marker>
-        </defs>
-        <rect x="10" y="50" width="120" height="44" rx="8" style="fill:var(--surface);stroke:var(--rule)"/>
-        <text x="70" y="77" text-anchor="middle">intro</text>
-        <rect x="220" y="10" width="140" height="44" rx="8" style="fill:var(--surface);stroke:var(--rule)"/>
-        <text x="290" y="37" text-anchor="middle">enactment</text>
-        <rect x="410" y="90" width="140" height="44" rx="8" style="fill:var(--surface);stroke:var(--rule)"/>
-        <text x="480" y="117" text-anchor="middle">integration</text>
-        <path d="M130 62 L218 38" style="fill:none;stroke:var(--accent);stroke-width:1.6" marker-end="url(#ah)"/>
-        <path d="M130 84 L408 112" style="fill:none;stroke:var(--accent);stroke-width:1.6" marker-end="url(#ah)"/>
-        <path d="M360 40 L438 88" style="fill:none;stroke:var(--accent);stroke-width:1.6" marker-start="url(#ah)" marker-end="url(#ah)"/>
-        <text class="lab" x="70" y="122" text-anchor="middle">no return to intro</text>
-        <text class="lab" x="424" y="54" text-anchor="start">two-way</text>
-      </svg>
-    </div>
-    <ul class="measure">
-      <li>רק הדירקטור (<bdi dir="ltr">L2</bdi>) מבצע מעבר שלב. המעבר דביק ובלי טיימר.</li>
-      <li>מעבר משנה את מה ש-<bdi dir="ltr">L2</bdi> מציע. הוא אף פעם לא חותך את שכבת הסאונד או את עולם התמונה, שממשיכים דרכו.</li>
-      <li>"חלק" פירושו: קודם ההחלטה, ואז רמז קצר אחד, פעולת מדיה אחת ומרווח (בערך 6 שניות). לפי קריאת המשקיף, על המעבר לא מכריזים.</li>
-    </ul>
-  </section>
-
-  <section id="he-open">
-    <h2>מה מוצע, מה נענה, מה פתוח</h2>
-    <div class="status-grid">
-      <div class="row"><span class="pill open">מוצע</span><div class="body"><p>כל מה שבסעיפים 1–5 ו-7 של התכנית מוצע, ומאושר רק בשער (תמי או גוני). אחרי השער, בחירות הפיכות מוחלטות ומדווחות.</p></div></div>
-      <div class="row"><span class="pill open">מוצע בלבד</span><div class="body"><p>ניסוי <bdi dir="ltr">X10</bdi> (דיוק הפעולה הבאה, 45 דקות) נכנס לתכנית רק עם ה-✅ של השער.</p></div></div>
-      <div class="row"><span class="pill done">נענה</span><div class="body"><p>שאלה 3, מצוקה כשאין אף אחד בחדר: אף אחד לא מקבל התראה ואין טיפול במצוקה; זו מערכת מחקרית <bdi class="id">AC80E3BB</bdi>. הסשן פשוט נגמר כשהאדם יוצא או כשהקשת מסתיימת. לכן גם אין שומר בטיחות נפרד.</p></div></div>
-      <div class="row"><span class="pill open">פתוח</span><div class="body"><p>מי מדרג ומי משחק בניסויים <bdi dir="ltr">X6, X7, X8, X10</bdi>: תמי וגוני מחליטים.</p></div></div>
-      <div class="row"><span class="pill open">פתוח</span><div class="body"><p>הפערים מהמערכת הישנה (<bdi dir="ltr">G5–G8, G11</bdi>) ממתינים ל-✅ של תמי או גוני.</p></div></div>
-    </div>
-
-    <div class="tension">
-      <h4><span class="tag">5א</span> כמה להסיק ממעט: הסקה מינימלית מול פעולה הבאה חדה</h4>
-      <ul class="measure">
-        <li>במערכת הישנה, קריאות עמוקות דרשו התכנסות של כמה תרומות בלתי תלויות. הניסוח "הסקה מינימלית עד התכנסות" הוא סיכום של המשקיף, לא ציטוט.</li>
-        <li>אתה אמרת: <q>להסיק דברים מהמעט שאספנו על הבן אדם</q> ו-<q>מערכת מאוד מאוד חדה בזיהוי הפעולה הבאה שלה בכל רגע נתון</q> <bdi class="id">3A918E2B</bdi>.</li>
-        <li>המילים שלך הן החזון. העמדה הישנה היא ראיה בלבד.</li>
-        <li>הצעה ליישוב (שלנו, לא הוכרעה): הצעות נחרצות, בסיכון נמוך ושאפשר לתקן, לפעולה הבאה. טענות פרשניות נשארות זהירות עד שהראיה חוזרת.</li>
-        <li><bdi dir="ltr">X10</bdi> יכול לבדוק את זה (הוא מוצע בלבד). תמי וגוני מחליטים.</li>
+    <li class="stop">
+      <span class="time">0:00</span>
+      <h3>נכנסים<span class="en">Arriving</span></h3>
+      <p>האדם נכנס ורואה מסך כהה ונושם, בלי הוראות ובלי מקרא. צליל רך כבר חי בחדר.</p>
+      <p class="en">The person walks in to a dark, breathing screen, with no instructions and no legend. A soft sound is already alive in the room.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g0"></span>רפלקס</span> הצליל זז מעט עם כל תנועה, עוד לפני שמישהו מדבר.</p>
+            <p class="en"><span class="who"><span class="g g0"></span>Reflex</span> the sound already shifts a little with every move, before anyone speaks.</p></li>
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> קורא את המראה מהרגע הראשון: לבוש, שיער, הבעה. זה חומר לשיחה, לא לתיאור יבש.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> reads appearance from the first moment: clothes, hair, expression. It is material for the conversation, not a dry description.</p></li>
       </ul>
-    </div>
-    <div class="tension">
-      <h4><span class="tag">5ב</span> סיכון ליציאה שגויה: "הרצון שלהם מספיק"</h4>
-      <ul class="measure">
-        <li>במערכת הישנה, אינאקטמנט עבר לאינטגרציה לפי רצון האדם.</li>
-        <li>ראיה: בריצה ישנה אחת המערכת קפצה לאינטגרציה <bdi>1.7</bdi> שניות אחרי <bdi dir="ltr" lang="en">"Bye. Bye."</bdi> שכנראה נשמע לא נכון, בזמן שהאדם המשיך לדבר.</li>
-        <li>פתוח: איזו ראיה צריך רצון לסיים לפני שהדירקטור מבצע את המעבר.</li>
-        <li>הקשת חזרה לאינאקטמנט קיימת, אבל רק כשהאדם רוצה פעולה. לכן זה מיתון חלש, לא הכרעה (הקריאה שלנו).</li>
-        <li>אין עדיין ניסוי שבודק את זה. תמי וגוני מחליטים.</li>
+    </li>
+
+    <li class="stop">
+      <span class="time"><bdi dir="ltr">0:00–1:00</bdi></span>
+      <h3>הפתיחה<span class="en">The opening</span></h3>
+      <p>החדר אומר מי הוא: חוויה פסיכדלית שנוצרה בידי בינה מלאכותית, חדר שרואה ומקשיב. מרגע זה החדר מוביל, ולא מחכה שהאדם יפתח.</p>
+      <p class="en">The room says who it is: an AI psychedelic experience, a room that sees and listens. From here on the room leads; it does not wait for the person to open.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g1"></span>הקול המהיר</span> אומר את הפתיחה, בעברית או באנגלית.</p>
+            <p class="en"><span class="who"><span class="g g1"></span>Quick voice</span> speaks the opening, in Hebrew or English.</p></li>
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> מחזיק מטרה אחת לשלב הזה: היכרות.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> holds one goal for this phase: getting acquainted.</p></li>
       </ul>
-    </div>
-  </section>
+    </li>
 
-  <section id="he-gate">
-    <h2>סטטוס השער</h2>
-    <div class="status-grid">
-      <div class="row key"><span class="pill closed">לא נלחץ</span><div class="body">
-        <p><strong>השער (<bdi dir="ltr">planv1_ok</bdi>) לא נלחץ.</strong> התכנית לא אושרה וממתינה ל-✅ של תמי או גוני; כל אחד מהם לבד מספיק. שום דבר בבנייה לא מתחיל לפני ה-✅ הזה.</p>
-        <p>ה-✅ של השער מאשר את התכנית בלבד. הוא לא עונה על אף דלת.</p>
-      </div></div>
-      <div class="row"><span class="pill closed">סגורה</span><div class="body">
-        <p><strong>Q1 עברית</strong> · <bdi dir="ltr">door_hebrew</bdi>. סגורה עד שהכפתור שלה נלחץ.</p>
-        <p class="pos">העמדה שלך <bdi class="id">3A739217</bdi>: להשאיר שתי אפשרויות <bdi dir="ltr">TTS</bdi>, עברית ואנגלית: <q>צריכות להיות לנו שתי האופציות</q>. עמדה איננה לחיצה.</p>
-      </div></div>
-      <div class="row"><span class="pill closed">סגורה</span><div class="body">
-        <p><strong>Q2 טקסט לענן</strong> · <bdi dir="ltr">door_cloudtext</bdi>. סגורה עד שהכפתור שלה נלחץ.</p>
-        <p class="pos">העמדה שלך <bdi class="id">3A739217</bdi>, בהקלטה: כן לטקסט לענן, כקריאות למודלי שפה דרך הענן: <q>לגבי טקסט לענן זה פשוט קריאות למודלי שפה דרך הענן, אם הבנתי את זה ככה, אז כמובן שאני מאשר את זה</q>. <bdi dir="ltr">TTS</bdi> בענן לא הוזכר בהודעה הזו (הקריאה שלנו). עמדה איננה לחיצה.</p>
-      </div></div>
-      <div class="row"><span class="pill closed">סגורה</span><div class="body">
-        <p><strong>Q2b תנוחה</strong> · <bdi dir="ltr">door_pose</bdi>. האם נקודות תנוחה ומזהי פרומפט מוכנים מראש יכולים ללכת ל-<bdi dir="ltr">GPU</bdi> שאנחנו שוכרים, תחת הסכמה ליציאת מידע (<bdi dir="ltr">G2</bdi>). ההסכמה נקבעת בהגדרה, לא בסשן. סגורה עד שהכפתור שלה נלחץ.</p>
-      </div></div>
-      <div class="row"><span class="pill closed">סגורה</span><div class="body">
-        <p><strong>G2-LAN</strong> · <bdi dir="ltr">door_lan</bdi>. האם מחשב של הצוות באותה רשת מקומית, בלי מעבר לאינטרנט, נחשב "המחשב". סגורה עד שהכפתור שלה נלחץ.</p>
-        <p class="pos">העמדה שלך <bdi class="id">3A5C5F57</bdi>: Chamber רץ על מחשב <bdi dir="ltr">GPU</bdi> אחד (שלך או של תמי); מחשב שני נדחה ולא רלוונטי כרגע: <q>אולי בהמשך יהיה קונפיגורציה עם מחשב שני אבל כרגע זה נראה לא רלוונטי</q>. קודם, ב-<bdi class="id">3A739217</bdi>, אמרת: <q>לא הבנתי את השאלה הזאת</q>. עמדה איננה לחיצה.</p>
-      </div></div>
-      <div class="row"><span class="pill defer">מושהית</span><div class="body">
-        <p><strong>Q2c קול</strong>. נשאלת רק אם ניסוי <bdi dir="ltr">CT5</bdi> יראה שזיהוי דיבור מקומי בדרג <bdi dir="ltr">T0</bdi> לא עומד בקצב.</p>
-      </div></div>
-      <div class="row"><span class="pill done">נענתה</span><div class="body">
-        <p><strong>Q3 מצוקה</strong>. נענתה <bdi class="id">AC80E3BB</bdi>: אין התראה ואין טיפול במצוקה.</p>
-      </div></div>
-    </div>
-    <p class="note">כל דלת סגורה, כלומר שום דבר לא יוצא מהמחשב, עד שתמי או גוני לוחצים על הכפתור שלה (<bdi dir="ltr">_yes</bdi> או <bdi dir="ltr">_no</bdi>). שליחת פריימים של וידאו אל מחוץ למחשב לא נשאלת בכלל. קודים בני 8 תווים כמו <bdi class="id">3A739217</bdi> מזהים את ההודעה המקורית בקבוצה.</p>
-  </section>
-</div>
-
-<!-- ============ FULL PLAN (ENGLISH) ============ -->
-<article class="plan" lang="en" dir="ltr">
-
-  <section id="status">
-    <div class="eyebrow">Full plan, original English</div>
-    <h2>PLAN: Chamber Next Gen (for the gate)</h2>
-    <div class="meta">
-      <p><strong>Status: v1</strong> (2026-10-30, reconcile round folded). Earlier: DRAFT v0.1 (the observer's foundation-check fixes) and v0.2 (the second design and the second creep audit folded in).</p>
-      <p><strong>Sign-off: Tami OR Goni</strong>, via buttons in the group (<span class="id">ACD40001</span>). Either one has full authority.</p>
-      <p>The gate is not approved: awaiting ✅. The planning gate stays open for at least 1 hour of planning (<span class="id">AC455B10</span>), and nothing in the build starts before that ✅. The gate ✅ (<code>planv1_ok</code>) approves the plan only. Each §6 door stays closed, so nothing leaves the machine, until Tami or Goni answers that door's own button (<code>door_*_yes|no</code>).</p>
-      <p><strong>v1.1 note:</strong> Goni's 02:42 input (<span class="id">3A918E2B</span>) is folded in as notes and a proposed X10; the plan v1 the buttons approve is otherwise unchanged. The notes are in ADR §16; X10 is in §4 Step 0.</p>
-      <p>v1 waited on three things, and all three have landed: the second, independent design ✅; the second creep audit ✅; the reconcile round between the two designs ✅ (each answered the other once; the outcome is in ADR §14).</p>
-    </div>
-    <p class="note">Reading notes: the plan file carries change-tracking tags after most lines (date, source, and sometimes the earlier wording). They are left out here so the text reads cleanly; decision sources that matter are kept. References to the old system's source files are replaced with plain words.</p>
-  </section>
-
-  <section id="s1">
-    <h2>1. What we are building</h2>
-    <div class="flow measure">
-      <p class="lead">Chamber is a room that sees one person alone and plays with them for 15–30 minutes. They move, and sound and image answer as if they were their own body. A voice leads them toward release and never promises something the room doesn't then do.</p>
-      <p>That voice is the spirit in the room, not a tool the person operates: it owns the experience end to end, slowly opens up and offers ways to move, infers from cues and never asks directly how to open up; it asks small questions about what is alive in the moment (the wind or the cold is at most one example), grounds its questioning in psychodrama, Jungian questioning and Jodorowsky toward cognitive flexibility (Goni 21:03; derived detail, not Goni's words: warm-up, enactment, role reversal, doubling; active imagination and amplification, where the image is asked to speak rather than interpreted for the person; psychomagic, a symbolic act the person performs), never naming any of it to the person, and hears a concrete request without the person ever being in a command mode (<span class="id">AC80E3BB</span>).</p>
-      <p>Three invariants carry everything:</p>
-      <ul class="inv">
-        <li><b>I-PLAY</b> the body plays the sound.</li>
-        <li><b>I-SAY-DO</b> every spoken promise fires.</li>
-        <li><b>I-SEE</b> the room always sees the person sharply.</li>
+    <li class="stop">
+      <span class="time"><bdi dir="ltr">1:00–4:00</bdi></span>
+      <h3>הגוף מתעורר<span class="en">The body wakes</span></h3>
+      <p>החדר מזמין לזוז, בפשטות: ליישר את הגוף, לנשום, צעד קטן ועדין מחוץ לנוחות, ואז לזרום. לא "תעשה את התנועה הזאת בדיוק", אלא לחקור.</p>
+      <p class="en">The room invites movement plainly: align the body, breathe, take one small and gentle step out of comfort, then flow. Not "do exactly this move", but explore.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g0"></span>רפלקס</span> ידיים, אצבעות, פלג גוף עליון וראש כולם מנגנים.</p>
+            <p class="en"><span class="who"><span class="g g0"></span>Reflex</span> hands, fingers, torso and head all play.</p></li>
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> בשלב מסוים "קושר" תנועה אחת לצליל: פתאום פריסת האצבעות פותחת את הסאונד. החדר שם לב שזה נקלט, ושואל: "מה אתה שומע?"</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> at some point it binds one movement to a sound: suddenly spreading the fingers opens the sound. The room notices it landed, and asks: "what do you hear?"</p></li>
       </ul>
-      <p class="note">The full picture is in the ESSENCE and DESIGN-CLEAN documents.</p>
-    </div>
-  </section>
+    </li>
 
-  <section id="s2">
-    <h2>2. What we propose</h2>
-    <p class="note measure">Details in the ADR stack v0.2, PROPOSED: ratified at the gate by Tami or Goni (<span class="id">ACD40001</span>).</p>
-    <div class="flow measure">
-      <h3>Three processes</h3>
-      <p>A Rust realtime core (body → sound, all in code, never waiting on a model), <code>chamber-sense</code> (camera + pose, so a blocked camera never silences the sound), and a Python mind. The core supervises both. (ADR §2 v0.2; it was two.)</p>
-
-      <h3>Three loops, after Tami's own "mouth + mini-mouth" system</h3>
-      <p class="note">(<span class="id">AC421349</span>: <bdi lang="he" dir="rtl" class="q">"זה קצת כמו מערכת שלי של הפה והמיני פה"</bdi>)</p>
-      <ul>
-        <li><strong>L0 reflex:</strong> code, every frame.</li>
-        <li><strong>L1 "mini-mouth":</strong> speaks now, using the same strong model with reasoning off.</li>
-        <li><strong>L2 "mouth":</strong> thinks, and re-tunes L0 through tool calls.</li>
-        <li>No separate safety governor. Dropped per Goni <span class="id">AC80E3BB</span> (19:39): a research system, no health controls.</li>
+    <li class="stop">
+      <span class="time"><bdi dir="ltr">4:00–6:00</bdi></span>
+      <h3>התמונה הראשונה<span class="en">The first image</span></h3>
+      <p>האדם מדבר, והמילים שלו הופכות לתמונה אמורפית שמוקרנת סביבו: צורה, צבע, תנועה, לא דיוקן שלו.</p>
+      <p class="en">The person speaks, and their words become an amorphous image projected around them: shape, colour, motion, not a portrait.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> שואל, לא מספר: לא "יש כאן אבן", אלא "מה אתה רואה?"</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> asks, does not tell: not "there is a stone", but "what do you see?"</p></li>
       </ul>
+    </li>
 
-      <h3>One voice, no advisor roster</h3>
-      <p>Three stateless specialist tools serve L2.</p>
-
-      <h3>Context engineering</h3>
-      <ul>
-        <li>prompt blocks with hard caps;</li>
-        <li>every state field carries its age; a stale field prints as UNKNOWN, never as current;</li>
-        <li>body state enters context as symbols, never pixels.</li>
-      </ul>
-
-      <h3>Runs on all three machines</h3>
-      <p>The Mac, the laptop, the desktop, with their current webcams:</p>
-      <ul>
-        <li>cross-platform defaults;</li>
-        <li>a startup probe picks the mode;</li>
-        <li>no camera requirement;</li>
-        <li>the Mac is the dev box, not the target (<span class="id">ACC6A612</span>);</li>
-        <li>each capability (vision, stt, tts, llm, dream, AEC, audio I/O) is tiered T0/T1/T2 behind one provider contract, with a local floor that works with zero ✅;</li>
-        <li>providers are re-picked live during a session (health, latency, G2 egress consent), not once at startup;</li>
-        <li>a web lite profile stays possible (the same core in the browser; the cost of keeping it open is the wasm32 CI gate).</li>
-      </ul>
-
-      <h3>Privacy</h3>
-      <p>Nothing leaves the machine by default; on T0 the floor fills the gap (phrase bank, scripted score) unless an offload door in §6 is ✅. Session data leaves the machine only after an explicit ✅ from Tami or Goni (G2; see §6) (<span class="id">ACD40001</span>).</p>
-
-      <h3>A living system from day 1</h3>
-      <p class="note">(Tami <span class="id">AC455B10</span>; ADR §2, §3.2.) These ship with Step 2, not later:</p>
-      <ul>
-        <li><strong>self-healing:</strong> the core supervises the mind and restarts it; the room never goes silent on a crash;</li>
-        <li><strong>error logging + monitoring:</strong> one trace per turn, from mic to speaker, in a local console;</li>
-        <li><strong>live watchdog agents for latency:</strong> they read the traces and alarm on any budget breach;</li>
-        <li><strong>self-improvement / auto-research:</strong> prompts and mappings evolve only between sessions, against replays, and ship only if they win on the scorecard;</li>
-        <li><strong>the living option tree:</strong> a scheduled refresh re-checks every pick against new technology.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="s3">
-    <h2>3. Gaps: the v1 gaps are closed, the rest stay open</h2>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Gap</th><th>Owner</th><th>When</th></tr></thead>
-        <tbody>
-          <tr><td><del>The second, independent design + its attack on ADR v0.1</del></td><td>The second design</td><td>✅ landed 18:19, folded into ADR v0.2</td></tr>
-          <tr><td><del>Second legacy-creep audit of SALVAGE/PARITY</del></td><td>The creep-audit lane</td><td>✅ landed 18:20. Its 8 fixes (#8 and #9 share one B17 re-statement) are applied by the 18:29 fold: each fixed line in SALVAGE and PARITY carries a "CREEP-AUDIT-2 #n" mark, and no ≥30 Hz gate remains (checked at 19:47: the only "≥30 Hz" left is PARITY's explanation of why the gate was removed; SALVAGE's "30 Hz" lines are the dropped legacy poll).</td></tr>
-          <tr><td><del>The reconcile round between the two designs (each answers the other once where they disagree; outcome recorded in the ADR)</del></td><td>Both designs, recorded by the plan writer</td><td>✅ landed; outcome in ADR §14; its new deciding experiments are in §4 Step 0. Why it was needed: two independent designs only converge if each answers the other's attacks.</td></tr>
-          <tr><td>Architecture simulation (Tami <span class="id">AC592803</span>): a data-driven live run of the plan, as theoretical validation that it is coherent before we build. Why: a step that no component can perform shows up as a visible gap on screen, which a document can hide.</td><td>Build workflows</td><td>Progressive builds, before the gate</td></tr>
-          <tr><td>The laptop and desktop specs</td><td>The startup probe logs them on the first run there</td><td>Post-gate, day 1</td></tr>
-          <tr><td>Who runs the scorecard on the laptop and desktop</td><td>Goni (those machines are with him): one command prints the scorecard + probe; he pastes it in the group with his sentence</td><td>Every build</td></tr>
-          <tr><td>Prepared Acts and the capsule-builder fixture in the Step 2 skeleton (harness notes §6 items 8 and 11; ADR §14 row 22). A reversible scope call.</td><td>The plan writer</td><td>Decided and reported after the gate</td></tr>
-          <tr><td>The open one-way doors in §6 (Q1, Q2/Q2b, G2-LAN; Q3 is answered; Q2c deferred: asked only if spike CT5 shows local T0 STT cannot keep up)</td><td>Tami or Goni</td><td>Each door on its own button (<code>door_*_yes|no</code>), not by the plan ✅</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section id="s4">
-    <h2>4. How it gets built (after the gate)</h2>
-    <p class="measure">Every step ships behind a flag and must keep all earlier acceptance tests green. Every spawned agent runs on an explicit opus model. Fable is not used after the planning period.</p>
-
-    <h3 id="s4-step0">Step 0: kill-or-confirm spikes, in parallel (each ≤3 h; ADR §7)</h3>
-    <ul class="spikes measure">
-      <li><b>R1</b><div class="what"><p>glass→sound on each webcam, at its native rate, prediction on/off; observed vs predicted tracking reported apart (+ merged test "Embodiment");</p></div></li>
-      <li><b>R2</b><div class="what"><p>Hebrew L1 turn latency + "one mind": 60 matched turns, blind-rated, prepared vs novel apart, filler doesn't count (+ "Speaker choice");</p></div></li>
-      <li><b>R3</b><div class="what"><p>TTS word times → cue skew: 200 Hebrew cues with random cancels, measured on loopback; a missing effect or &gt;150 ms kills (+ "Promise execution");</p></div></li>
-      <li><b>R3b</b><div class="what"><p>AEC with music + double-talk; missed or garbled user speech over the music blocks, because the spirit must hear the person to lead the dialogue (<span class="id">AC80E3BB</span>) (+ "Hebrew/AEC");</p></div></li>
-      <li><b>H1</b><div class="what"><p>L2 re-tunes L0 live;</p></div></li>
-      <li><b>H2</b><div class="what"><p>cache hits;</p></div></li>
-      <li><b>S1</b><div class="what"><p>the process soak (core, sense, mind) + deliberate stalls (vision, workers, model calls); any audio underrun kills (+ "Deadline isolation");</p></div></li>
-      <li><b>S2</b><div class="what"><p>SuperCollider → core mixing;</p></div></li>
-      <li><b>A1</b><div class="what"><p>authority: replay 80 out-of-order events; any stale commit, lost G2 egress-consent state, or dropped refusal record (a heard "no" the spirit never pushes past) kills;</p></div></li>
-      <li><b>A2</b><div class="what"><p>improvement gate: it must reject 5 planted "better" patches with hidden regressions.</p></div></li>
-    </ul>
-
-    <h4>Capability-tier and platform spikes</h4>
-    <p class="note measure">Pass / kill criteria are in CAPABILITY-TIERS §8 and PLATFORM-SHAPES.</p>
-    <ul class="spikes measure">
-      <li><b>CT1</b><div class="what"><p>T0 laptop, full 20-min scripted session with no egress, on battery then AC; 0 audio dropouts, B17 ≥99 % at the native rate, B3a ≤100 ms p95;</p></div></li>
-      <li><b>CT2</b><div class="what"><p>provider hot-swap mid-session (kill primaries mid-utterance, revoke a G2 egress ✅ mid-session, a 0.5 Hz flapping provider); degrade ≤1 s, recover ≤10 s, 0 promises fired but unhonoured;</p></div></li>
-      <li><b>CT3</b><div class="what"><p>LAN offload latency laptop → desktop, wired then Wi-Fi (dream frames + STT partials);</p></div></li>
-      <li><b>CT4</b><div class="what"><p>probe accuracy: predicted vs 10 min measured, on all three machines, within ±20 %;</p></div></li>
-      <li><b>CT5</b><div class="what"><p>local voice on T0: small int8 Whisper on 50 Hebrew utterances + a CPU TTS with word times;</p></div></li>
-      <li><b>CT6</b><div class="what"><p>core parity: one fixture through <code>chamber_core</code> on the Mac, the Windows desktop and wasm, identical per-block hashes (merges with P2);</p></div></li>
-      <li><b>P1</b><div class="what"><p>Windows audio floor (cpal vs IAudioClient3 vs ASIO, loopback) on Goni's desktop and laptop;</p></div></li>
-      <li><b>P2</b><div class="what"><p><code>chamber_core</code> stub native + wasm32, fixture hashes compared (also: does sonora compile to wasm);</p></div></li>
-      <li><b>P3</b><div class="what"><p>web lite: AudioWorklet loopback latency + glitches over 30 min in Chrome on Mac and Windows;</p></div></li>
-      <li><b>P4</b><div class="what"><p>sonora vs webrtc-audio-processing ERLE on the music test (≥25 dB);</p></div></li>
-      <li><b>P5</b><div class="what"><p>tracker parity: MediaPipe-native vs ONNX-ort vs MediaPipe-JS on one clip (landmark RMSE + per-frame latency).</p></div></li>
-    </ul>
-    <p class="measure">The second design's 8 experiments are merged in: five test the same failure as an existing spike, so they sharpen its kill criterion instead of running twice; A1–A2 test failures nothing else touched (stale commits, the self-improvement gate). The third, A3 (non-pushy safety), is dropped per Goni <span class="id">AC80E3BB</span> (19:39): a research system, no health controls. ADR §7 counts it as 4 merged + X1–X3 new; here Deadline isolation (ADR X2) rides S1, so the counts differ but the set is the same.</p>
-
-    <h3 id="s4-reconcile">Reconcile-round deciding experiments</h3>
-    <div class="flow measure">
-      <p>Sources: the two reconcile answers; outcome and ids in ADR §14 and §7. Five are new spikes, X5 to X9 (220 min in all). The rest extend a spike above and run on its rig. A sixth, X10, is proposed (45 min; 265 min with it). It is not counted in the 220 min until the gate ✅ (Goni <span class="id">3A918E2B</span> 02:42).</p>
-      <p>A kill marked "derived" is ours; the source gives only the experiment.</p>
-    </div>
-
-    <h4>New spikes</h4>
-    <ul class="spikes measure">
-      <li><b>X5</b><div class="what">
-        <p><span class="name">Thinker cadence</span> (45 min): replay one session. The thinker (L2) wakes on events only, on events plus a "quiet for 15 s" watch, and on 3, 5 and 10 s timers.</p>
-        <p class="pass"><em>Pass</em> for events + the quiet watch: ≤20 % of prepared Acts invalidated before use, 0 stale commits, and no more moments left unanswered &gt;20 s than the best timer.</p>
-        <p class="kill"><em>Kill:</em> more moments missed, or &gt;20 % invalidated → keep a timer at the best cadence, run as a watch. The speaker (L1) ever waits behind a specialist → specialists queue behind the thinker (derived).</p>
-        <div class="prec">
-          <div class="eyebrow">Old-system precedent (ADR §15 rows 1, 3; knowledge, not orders)</div>
-          <ul>
-            <li>Old speech came only from a Director decision, with no speech timer.</li>
-            <li>Every decision ended in a mandatory wait, with a 180 s terminal ceiling.</li>
-            <li>The 20-30 s re-entry figure came from an authored example session in the old design docs, not from evidence (TRIAGE B20/B68).</li>
-            <li>The old worked examples chose waits of 0 s or 3-10 s, with a 180 s cap. No old phase or timing rule uses 20-30 s.</li>
-            <li>Goni asked what the 20-30 s figure is and said it <bdi lang="he" dir="rtl" class="q">"נשמע כמו טעות"</bdi> (sounds like a mistake) (<span class="id">3A8B4B71</span>).</li>
-            <li>No number is carried. X5 sets N.</li>
-            <li>The principle is kept without the number: restraint and silence are acts; the floor is the person's; re-entry offers an observation, with no push (TRIAGE B20).</li>
-            <li>Why: words tied to a decision answer what just changed. A timer speaks when nothing changed.</li>
-            <li>Stance: adopt event-driven speech; adapt the wake to our quiet-for-N-s watch. X5 sets N, not the old design doc or the 180 s cap.</li>
-            <li>The real wait bounds are old-repo gap G5; the idle loop is G6. Both wait for Tami/Goni's ✅. This note changes no kill criterion.</li>
-          </ul>
-        </div>
-      </div></li>
-
-      <li><b>X6</b><div class="what">
-        <p><span class="name">Felt-heard</span> (40 min): blind, with a rater, ≥10 trials each. Who rates is open: Tami/Goni decide. A breath, silence, or a generic spoken bridge comes before the same context-relevant line at the same latency.</p>
-        <p class="kill"><em>Kill:</em> the breath does not beat silence on "felt heard", or it is rated filler → it stays off. (Fallback from the harness notes §5 S6.)</p>
-        <div class="prec">
-          <div class="eyebrow">Old-system precedent for who rates (ADR §15)</div>
-          <ul>
-            <li>The old Chamber rated with 13 simulated personas plus AI judges, scored on the O1-O5 / E1-E15 / I1-I4 rubric.</li>
-            <li>It had no human rater.</li>
-            <li>Why it helps: cheap and repeatable on every build. Why it fails alone: judges share the model's blind spots, and personas are not people.</li>
-            <li>Stance: adapt the persona + AI-judge rig as the default eval loop while who rates is open. It gives regression signals, not the verdict.</li>
-            <li>Rubric text is old-repo gap G8. Who rates stays open for Tami/Goni, awaiting ✅.</li>
-          </ul>
-        </div>
-      </div></li>
-
-      <li><b>X7</b><div class="what">
-        <p><span class="name">Stable gestures, live</span> (45 min): 3 × 10 min with a player, in counterbalanced order. Who plays and rates is open: Tami/Goni decide.</p>
-        <ul>
-          <li>A: silent re-map mid-phase.</li>
-          <li>B: a voiced offer adds a binding mid-phase.</li>
-          <li>C: new bindings only at a phase boundary, after visible uptake.</li>
+    <li class="stop anytime">
+      <span class="time">any moment</span>
+      <h3>כל רגע של שקט<span class="en">Any moment of silence</span></h3>
+      <div class="inner">
+        <p>כמה שניות של שקט זה בסדר. שקט ארוך הוא סימן לדבר. החדר לא משאיר את האדם לבד מול השקט.</p>
+        <p class="en">A few seconds of quiet are fine. A long silence is a sign to speak. The room does not leave the person alone with the silence.</p>
+        <ul class="acts">
+          <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> בכל התעוררות בוחר צעד: שאלה, הצעה, או קריאה נועזת של מה שהוא רואה ("אני רואה שאתה ככה, אולי זה אומר שאתה בעצם ככה?"). כל משפט על הגוף נשען על משהו שבאמת נראה. הפרשנות שמעליו יכולה להיות אמיצה.</p>
+              <p class="en"><span class="who"><span class="g g2"></span>Mind</span> on each wake it picks an act: a question, an offer, or a bold reading of what it sees ("I see you doing this; maybe it means you are really like this?"). Every sentence about the body rests on something actually seen; the reading built on it may be bold.</p></li>
+          <li><p class="he"><span class="who"><span class="g g1"></span>הקול המהיר</span> אם עשר שניות עברו בלי החלטה, מדבר מתוך מה שהוכן.</p>
+              <p class="en"><span class="who"><span class="g g1"></span>Quick voice</span> if ten seconds pass with no decision, it speaks from what was prepared.</p></li>
         </ul>
-        <p>Measure felt agency, the player's predictions of what a move does, and retry gestures.</p>
-        <p class="kill"><em>Kill:</em> C beats B → new bindings wait for uptake at a boundary. A preferred with equal retries → loosen.</p>
-        <div class="prec">
-          <div class="eyebrow">Old-system precedent (ADR §15 row 7; knowledge, not orders)</div>
-          <ul>
-            <li>The Director armed "when &lt;body condition&gt; do &lt;1-4 actions&gt;", TTL 90 s, silent expiry.</li>
-            <li>The trigger spanned two turns, "so the voice gets a second chance".</li>
-            <li>A default body→sound floor answered before any binding. ADR §15 row 6 adopts that floor.</li>
-            <li>Why: a promise needs time for the person to try. A second try turns a missed gesture into a kept promise.</li>
-            <li>Stance: adapt. An armed trigger is a reservation until its verify window ends. Whether it spans two turns: X7 decides.</li>
-            <li>Old gesture-stability precedent: a body benchmark with annotation and threshold fitting. Which gesture is armed next is old-repo gap G7, awaiting ✅.</li>
-          </ul>
-        </div>
-      </div></li>
+      </div>
+    </li>
 
-      <li><b>X8</b><div class="what">
-        <p><span class="name">Ledger on/off</span> (45 min): 30 moments, each with a later turn that contradicts the guess. Replayed three ways: measurements only, plus the thinker's ledger, labels inside the packet. A rater scores blind "led from something I actually did". Who rates is open: Tami/Goni decide.</p>
-        <p class="kill"><em>Kill:</em> the ledger leads from things never seen → hypotheses become thinker-only scratch, cleared each turn.</p>
-        <div class="prec">
-          <div class="eyebrow">Old-system precedent for who rates (ADR §15)</div>
-          <ul>
-            <li>Same rig as X6: personas plus AI judges, no human rater.</li>
-            <li>Closest old judges for interpretation: the image-reading quality, honesty and coupling judges.</li>
-            <li>Why: a judge can check a reading against what was seen. It cannot tell if the person felt it was theirs.</li>
-            <li>Stance: adapt them as the default loop while who rates is open. Judge schemas are old-repo gap G8; the psyche/awareness prompts are G11.</li>
-            <li>Who rates stays open for Tami/Goni, awaiting ✅.</li>
-          </ul>
-        </div>
-      </div></li>
-
-      <li><b>X9</b><div class="what">
-        <p><span class="name">Look</span> (45 min): 20 labelled ambiguous moments. A timed VLM note vs the thinker asking the VLM a question vs a frame inside the thinker's context. Local VLM; a hosted path needs G2 ✅.</p>
-        <p class="kill"><em>Kill:</em> the frame is clearly better → the thinker may request a frame into its volatile tail only.</p>
-      </div></li>
-
-      <li><b>X10</b><div class="what proposed">
-        <p><span class="name">Next action (proposed, Goni 02:42)</span> (45 min; derived). Status: proposed. It joins the plan only with the gate ✅. Source: ADR §16 (rows 1 and 5, and its X10 block).</p>
-        <p>Method: 30 labelled moments from harness runs (the persona + AI-judge rig, ADR §15 row 11). For each one: does the Director's chosen next action fit the context?</p>
-        <p>Arms: the chosen next action vs a generic next line vs a fixed phase script. Judges score blind.</p>
-        <p class="kill"><em>Kill:</em> the chosen action does not beat the generic line on "fits this moment" → the next-action prompt and context are re-worked before more build.</p>
-        <p>Any line that names the frame, a drug or a trip fails the run.</p>
-        <p>Who rates is open: Tami/Goni decide. Rig scores are regression signals, not the verdict.</p>
-      </div></li>
-    </ul>
-
-    <h4 id="s4-ext">Extensions to spikes above (same rig, sharper kill)</h4>
-    <ul class="spikes measure">
-      <li><b>R1</b><div class="what"><p>+ 30 claps in view, camera onset vs audio onset, both timed against the output tap. <span class="pass"><em>Pass:</em></span> audio onset → sound ≤20 ms p95. <span class="kill"><em>Kill:</em></span> camera p95 &lt;30 ms (unexpected) → camera onsets re-open.</p></div></li>
-      <li><b>R2</b><div class="what"><p>+ speculation stability: 40 Hebrew utterances with recorded partial → final revisions, stability gate on/off. <span class="kill"><em>Kill:</em></span> committed drafts change intent &gt;5 % → the gate is mandatory, or speculation drops.</p></div></li>
-      <li><b>R2</b><div class="what"><p>+ speaker capsule size: split-150, split-full and single-full, speaker settings fixed. <span class="kill"><em>Kill (derived):</em></span> split-150 leads worse → the speaker reads the full decision slice.</p></div></li>
-      <li><b>R3</b><div class="what"><p>+ probe evidence: 30 body traces with prediction on, plus 30 claims where the person does not move. Any probe PASS on predicted-only motion blocks; the probe then reads the measurement ring only.</p></div></li>
-      <li><b>H1</b><div class="what"><p>+ mapping coverage: write 20 mappings Goni would ask for, with watches; check event traces and rendered effects. <span class="kill"><em>Kill:</em></span> fewer than 15 fit → offline primitives through the A2 gate. (Fallback from the harness notes §5 S4.)</p></div></li>
-      <li><b>H2</b><div class="what"><p>+ bins vs raw: 50 decisions replayed as bins, raw + confidence, and both. <span class="kill"><em>Kill for bins:</em></span> raw + confidence cuts hallucinated state by a third.</p></div></li>
-      <li><b>S1</b><div class="what"><p>+ stall injection: SIGSTOP 200 ms and 2 s on the camera worker, AEC and the detector thread, during a claim-bearing Act. <span class="kill"><em>Kill:</em></span> any xrun → that stage leaves the process.</p></div></li>
-      <li><b>A2</b><div class="what"><p>+ 10 planted regressions among 20 proposals, visible set vs private holdout. <span class="pass"><em>Pass:</em></span> the holdout catches ≥9/10 and the visible set fewer. Also: a prompt addition that truncates a live commitment near the context limit must be rejected.</p></div></li>
-      <li><b>A2</b><div class="what"><p>+ an offline primitive that hangs at a declared-valid decay = 1. <span class="kill"><em>Kill (derived):</em></span> the gate admits it → no agent-authored primitive enters a build until the gate is fixed.</p></div></li>
-    </ul>
-    <p class="measure"><strong>A spike that kills switches to the fallback already written next to it. No re-planning meeting.</strong></p>
-
-    <div id="s4-steps" class="flow measure">
-      <h3>Step 1: the first playable</h3>
-      <p class="note">Target: within hours of the gate; Tami E7 <bdi lang="he" dir="rtl" class="q">"בשעות הקרובות"</bdi>.</p>
-      <ul>
-        <li>The hand moves → a pad sound changes. Any machine's webcam; shown on the Mac first, then the same build runs on Goni's laptop as the T0 proof. No model, no voice.</li>
-        <li>It is the smallest thing Goni can touch and judge "better or worse than the old one".</li>
+    <li class="stop" data-c="b">
+      <span class="time"><bdi dir="ltr">6:00–18:00</bdi></span>
+      <h3>המשחק מעמיק<span class="en">The play deepens</span></h3>
+      <p>עכשיו הרבה יותר צליל ואמנות. ביט עולה כשהתנועה נבנית, ואפשר לרקוד. המוזיקה מתקדמת מעצמה, עשירה ומשונה: דיליי, פידבק, מודולציה איטית.</p>
+      <p class="en">Now there is much more sound and art. A beat rises as the movement builds, and the person can dance. The music moves on by itself, rich and strange: delay, feedback, slow modulation.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g0"></span>רפלקס</span> הגוף נשאר המשפיע העיקרי על המוזיקה.</p>
+            <p class="en"><span class="who"><span class="g g0"></span>Reflex</span> the body stays the main influence on the music.</p></li>
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> קושר ומשחרר תנועות לפי מה שנקלט, כמו די-ג'יי.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> binds and releases movements by what lands, like a DJ.</p></li>
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> לוקח תנועה של האדם ומחזיר אותה כסמל. מישהו שמחבק את עצמו רואה פתאום אם עוטפת תינוק: הילד הפנימי.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> takes the person's own movement and gives it back as a symbol. Someone hugging themselves suddenly sees a mother wrapping a baby: the inner child.</p></li>
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> מדבר דרך סמלים, תמונות וצליל משתנה: דרך, פחד, צל. העבודה עם הצל נמצאת שם כל הזמן, בלי להיקרא בשמה.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> speaks through symbols, images and changing sound: a journey, fear, the shadow. Shadow work is present all along without being named.</p></li>
       </ul>
+    </li>
 
-      <h3>Step 2: the walking skeleton</h3>
-      <p class="note">DESIGN-CLEAN §9; ORACLE §9 wargamed it 10+ moves deep.</p>
-      <ul>
-        <li>The scripted moment: "Now we'll hear a sound ⟨chime⟩. Now move your fingertips ⟨spread → filter⟩. That's you."</li>
-        <li>Its gate: 100% of promises fire, skew ≤150 ms, chaos tests pass, the provider hot-swap chaos test (CT2) passes, 1 h soak with 0 dropouts.</li>
+    <li class="stop" data-c="b">
+      <span class="time"><bdi dir="ltr">18:00–25:00</bdi></span>
+      <h3>לשחק את זה<span class="en">Acting it out</span></h3>
+      <p>האדם מגלם את מה שעלה. החדר משקף לו את זה בצורה ברורה יותר, במילים שלו.</p>
+      <p class="en">The person acts out what came up. The room reflects it back more plainly, in the person's own words.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> מאזן בין עומק לקרקוע, ובין פסיכולוגיה עמוקה לניחוש. הם צירים, לא כללים.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> balances depth against groundedness, and deep psychology against guessing. They are axes, not rules.</p></li>
       </ul>
+    </li>
 
-      <h3>Step 3: slices in order</h3>
-      <ol>
-        <li>listening (Ear + AEC + reflex);</li>
-        <li>barge-in;</li>
-        <li>the reactive image layer;</li>
-        <li>phases + L2 thinking (edges and exits: deep-read §A) (the safety floor is dropped per Goni <span class="id">AC80E3BB</span> (19:39): a research system, no health controls);</li>
-        <li>generated sound worlds (from scratch);</li>
-        <li>the thread model (cues → release);</li>
-        <li>the dream provider seam, built in this order: shader floor (all tiers), T1 local (CUDA desktop, Core ML Mac), then the T2 LAN peer if G2-LAN is ruled;</li>
-        <li>the console.</li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="s5">
-    <h2>5. The short feedback loop</h2>
-    <div class="flow measure">
-      <p class="note">Tami <span class="id">AC421349</span>: short loop, data-driven, Goni plays.</p>
-      <p>Every build produces a <strong>scorecard per machine</strong>:</p>
-      <ul>
-        <li>turn latency p95;</li>
-        <li>body→sound latency;</li>
-        <li>promise→effect skew;</li>
-        <li>dropouts;</li>
-        <li>cache hits;</li>
-        <li>spend.</li>
+    <li class="stop" data-c="c">
+      <span class="time"><bdi dir="ltr">25:00–30:00</bdi></span>
+      <h3>אינטגרציה וסיום<span class="en">Integration and close</span></h3>
+      <p>עכשיו אפשר לדבר על זה בגלוי. הצליל והתמונה נרגעים. הסשן נגמר כשהקשת נסגרת, או כשהאדם יוצא.</p>
+      <p class="en">Now it can be spoken about openly. Sound and image settle. The session ends when the arc closes, or when the person leaves.</p>
+      <ul class="acts">
+        <li><p class="he"><span class="who"><span class="g g2"></span>המוח</span> מחליף לשלב האחרון, בלי טריגר. הוא מרגיש שהגיע הזמן.</p>
+            <p class="en"><span class="who"><span class="g g2"></span>Mind</span> switches to the last phase without a trigger, because it senses the time has come.</p></li>
       </ul>
-      <p>Plus <strong>Goni plays it and says better or worse than old Chamber, and why</strong>. His sentence is stored verbatim beside the numbers.</p>
-      <ul>
-        <li>A build passes only if it passes on each machine at that machine's tier budgets, plus the parity hash gate.</li>
-        <li>"Worse" twice on the same axis re-opens the design (ADR §8).</li>
-        <li>Builds that can't be scored this way are not built.</li>
-      </ul>
-    </div>
-  </section>
+    </li>
 
-  <section id="s6">
-    <h2>6. One-way doors (the only questions at the gate)</h2>
-    <div class="flow measure">
-      <p>Asked of Goni at 20:24 via the observer: 4 doors, Q1, Q2, Q2b, G2-LAN (his approved status, item 8: Hebrew-first, session text to a cloud model, pose off the machine, a home-network machine as "the machine"); Q2c is deferred. His answers will come back through the observer.</p>
-      <p><strong>The gate ✅ (<code>planv1_ok</code>) does not answer any door.</strong> Q1 Hebrew, Q2 cloud text, Q2b pose and G2-LAN each stay closed, so nothing leaves the machine, until Tami or Goni answers that door's own button (<code>door_hebrew</code> / <code>door_cloudtext</code> / <code>door_pose</code> / <code>door_lan</code>, <code>_yes</code> or <code>_no</code>). Q2c stays deferred (CT5).</p>
-      <p>Goni's stated positions are noted under Q1, Q2 and G2-LAN below. <strong>A stated position is not a button press: each door stays CLOSED until its own button is pressed.</strong></p>
-    </div>
+  </ol>
+  </div>
+</section>
 
-    <div class="flow measure">
-      <div class="door">
-        <h4><span>1. Language (Q1)</span><span class="pill closed">CLOSED · door_hebrew</span></h4>
-        <p>Hebrew-first for the voice? It drives the choice of TTS and STT.</p>
-        <p class="pos">Goni's stated position (<span class="id">3A739217</span>): keep two TTS options, Hebrew + English (<bdi lang="he" dir="rtl" class="q">"צריכות להיות לנו שתי האופציות"</bdi>). Door stays CLOSED until <code>door_hebrew</code> is pressed.</p>
-      </div>
+<div class="around">
+  <div class="wrap">
+    <section>
+      <h2>לאורך כל הסשן<span class="en">Throughout</span></h2>
+      <p>כל מה שהחדר אומר על עצמו ועל מצבו נכון. כל הבטחה ("עכשיו תשמע צליל") מתקיימת.</p>
+      <p class="en">Everything the room says about itself and its state is true. Every promise ("now you will hear a sound") is kept.</p>
+      <p>אין שומר, אין מילת עצירה. זו מערכת מחקר פרטית.</p>
+      <p class="en">No guardian, no stop-word. This is a private research system.</p>
+    </section>
 
-      <div class="door">
-        <h4><span>2. Cloud thinking and cloud voice, text (Q2)</span><span class="pill closed">CLOSED · door_cloudtext</span></h4>
-        <p>May session <em>text</em> (transcript, prompts, TTS input; including Tami's API plan as one provider under this door) go to a cloud model for L1/L2, or to a cloud TTS, under G2 data-egress consent (a privacy door, kept; set at setup in the site profile, never asked of the person in the session)? Without it, cognition is local and weaker.</p>
-        <p>The second design proposed Azure Hebrew voices; every novel line sent there is session text, so it is the same door. Without it, TTS stays local on all three machines (that design's macOS fallback has no Windows path). This touches G2 (our derived privacy guard: session data stays on the machine unless approved), so it needs an explicit ✅ from Tami or Goni (<span class="id">ACD40001</span>).</p>
-        <p class="pos">Goni's stated position (<span class="id">3A739217</span>, by voice): yes to cloud text, read as language-model calls through the cloud (<bdi lang="he" dir="rtl" class="q">"לגבי טקסט לענן זה פשוט קריאות למודלי שפה דרך הענן, אם הבנתי את זה ככה, אז כמובן שאני מאשר את זה"</bdi>). Cloud TTS was not named in that message (our reading). Door stays CLOSED until <code>door_cloudtext</code> is pressed.</p>
-      </div>
+    <section>
+      <h2>מה המפתח רואה<span class="en">What the developer sees</span><span class="note">מסך נפרד, אף פעם לא אצל השחקן<span class="en">a separate screen, never the player's</span></span></h2>
+      <p>מצלמה עם שלד התנוחה, "סיפור הגוף" עם מזהה לכל תצפית, התיאור הנוכחי של מודל הראייה, ומקשים לעצירה, איפוס מהיר ושינוי ידני.</p>
+      <p class="en">The camera with the pose skeleton, the "body story" with an id for every observation, the vision model's current description, and keys to pause, reset fast and change things by hand.</p>
+    </section>
 
-      <div class="door">
-        <h4><span>Q2b (pose)</span><span class="pill closed">CLOSED · door_pose</span></h4>
-        <p>May pose keypoints plus pre-authored prompt ids go to a GPU we rent, under G2 data-egress consent (a privacy door, kept; set at setup in the site profile, never asked of the person in the session)? Pose is still behavioural data. ✅ from Tami or Goni.</p>
-      </div>
+    <section>
+      <h2>מה גוני עושה<span class="en">What Goni does</span></h2>
+      <p>משחק, ואומר במשפט אחד אם זה טוב יותר או פחות מהצ'יימבר הישן, ולמה. שאר הדברים (מדדים, שיפוט, עדכונים) קורים לבד.</p>
+      <p class="en">Plays, and says in one sentence whether it is better or worse than the old Chamber, and why. Everything else (numbers, judging, updates) happens by itself.</p>
+    </section>
 
-      <div class="door">
-        <h4><span>Q2c (voice)</span><span class="pill defer">DEFERRED</span></h4>
-        <p>Asked only if spike CT5 shows local T0 STT cannot keep up: may voice audio go to a hosted or LAN STT? ✅ from Tami or Goni.</p>
-      </div>
-
-      <div class="door">
-        <h4><span>G2-LAN ruling</span><span class="pill closed">CLOSED · door_lan</span></h4>
-        <p>Does a team-owned machine on the same local network, with no internet hop, count as "the machine"? A yes unblocks laptop→desktop dream, STT and TTS; until it is ruled, the LAN carries nothing person-derived during live sessions. Ruled by Tami or Goni.</p>
-        <p class="pos">Goni's stated position (<span class="id">3A5C5F57</span>): Chamber runs on one GPU machine (Goni's or Tami's); a second machine is deferred, not relevant now (<bdi lang="he" dir="rtl" class="q">"אולי בהמשך יהיה קונפיגורציה עם מחשב שני אבל כרגע זה נראה לא רלוונטי"</bdi>). Door stays CLOSED until <code>door_lan</code> is pressed.</p>
-        <p class="pos">Earlier, in <span class="id">3A739217</span>, he said he did not understand this door (<bdi lang="he" dir="rtl" class="q">"לא הבנתי את השאלה הזאת"</bdi>).</p>
-      </div>
-
-      <div class="door">
-        <h4><span>Video frames off the machine</span><span class="pill defer">NOT ASKED</span></h4>
-        <p>Video frames off the machine are not being asked. Listed only so nobody assumes it.</p>
-      </div>
-
-      <div class="door">
-        <h4><span>3. <del>Distress with nobody in the room</del></span><span class="pill done">ANSWERED</span></h4>
-        <p><del>Does anyone get notified, and what ends a session?</del> <strong>Answered by Goni <span class="id">AC80E3BB</span> (19:39):</strong> nobody is notified and there is no distress handling; it is a research system. The session simply ends when the person leaves or the arc completes.</p>
-      </div>
-
-      <p>Before the gate, everything here is proposed and ratified at the gate (Tami or Goni ✅); after the gate, reversible choices are mine, decided and reported (Tami: <bdi lang="he" dir="rtl" class="q">"לא צריך לנג'ס לנו"</bdi>).</p>
-    </div>
-  </section>
-
-  <section id="s7">
-    <h2>7. Top risks</h2>
-    <p class="note">Full register: ORACLE §5.</p>
-    <ul class="flow measure">
-      <li><strong>Camera latency kills the feeling of agency.</strong> The probe measures the camera rate on each machine (Mac ~16 fps, a 62.5 ms frame gap; laptop and desktop unknown). The 30 fps assumption came from our brief to the second design, not from that design. A random onset can wait a whole frame before the camera sees it, so camera-only onset feel relies on prediction + audio onsets (AEC-cleaned taps/claps in 5–10 ms blocks); spike R1 on each webcam.</li>
-      <li><strong>Two voices instead of one mind.</strong> The same model in L1 and L2; spike R2 is blind-rated.</li>
-      <li><strong>Hebrew word times are missing.</strong> Fall back to anchoring on segment boundaries (DR-1).</li>
-      <li><strong>Music defeats echo cancellation.</strong> Headset mode / ducking; spike R3b.</li>
-      <li><strong>The T0 laptop cannot hold a conversation locally.</strong> Spike CT5; without G2-LAN or Q2c, T0 is a no-conversation profile.</li>
-      <li><strong>The Windows audio period misses B16.</strong> cpal's WASAPI shared mode fixes a ~10 ms period; spike P1 (IAudioClient3 → ASIO).</li>
-      <li><strong>Provider swaps flap, or a swap glitches.</strong> Spike CT2; warm standbys and wider hysteresis.</li>
-      <li><strong>Wi-Fi jitter on LAN offload.</strong> Spike CT3; fallback is a wired-only LAN profile, pose only over Wi-Fi.</li>
-    </ul>
-  </section>
-
-  <section id="s8">
-    <h2>8. How you can watch it</h2>
-    <ul class="flow measure">
-      <li>The live architecture simulation: layer 1 is a rendered video; layer 2 is building. The v1 simulation is superseded: it still shows the retired guardian/stop-word scene (retired per Goni <span class="id">AC80E3BB</span>).</li>
-      <li>A delivery log, one line per change.</li>
-      <li>The action-items list.</li>
-      <li>The observer audits everything independently.</li>
-    </ul>
-  </section>
-
-  <footer class="foot">
-    <p>Source: PLAN.md v1 with the v1.1 note, rendered for reading on 2026-10-31. The Hebrew summary draws on PLAN.md and, for the three phases and tensions 5a/5b, on ADR §16. Hebrew quotes are copied exactly from the verbatim transcripts.</p>
-    <p>Nothing on this page approves the plan or opens a door.</p>
-  </footer>
-</article>
-
-</main>
+    <section class="first-step">
+      <h2>הצעד הראשון<span class="en">The first step</span></h2>
+      <p class="keys">דף אחד בלי מילים: הגוף כולו מנגן, תנועה אחת נקשרת לאט, והאקורדים זזים מעצמם. <kbd>רווח</kbd> עוצר, <kbd>r</kbd> מאפס.</p>
+      <p class="en keys">One wordless page: the whole body plays, one movement slowly binds, and the chords move by themselves. <kbd>Space</kbd> pauses, <kbd>r</kbd> resets.</p>
+    </section>
+  </div>
 </div>
 
-<script>
-(function(){
-  try{
-    var toc=document.getElementById('toc');
-    var mq=window.matchMedia('(max-width: 999px)');
-    if(mq.matches){toc.open=false;}
-    toc.addEventListener('click',function(e){
-      if(e.target.closest('a') && mq.matches){toc.open=false;}
-    });
-    var links=[].slice.call(toc.querySelectorAll('a[href^="#"]'));
-    var map={};
-    links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
-    if(!('IntersectionObserver' in window))return;
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){
-          links.forEach(function(a){a.classList.remove('on');});
-          var a=map[en.target.id]; if(a)a.classList.add('on');
-        }
-      });
-    },{rootMargin:'0px 0px -70% 0px'});
-    Object.keys(map).forEach(function(id){var el=document.getElementById(id); if(el)io.observe(el);});
-  }catch(err){}
-})();
-</script>
+<section class="brief" aria-labelledby="brief-h">
+  <div class="wrap">
+    <h2 id="brief-h">התוכנית בקצרה<span class="en">The plan in brief</span></h2>
+    <div class="body">
+      <p>Every step ships behind a switch and must keep all earlier tests passing. Before the skeleton, four short tests (three hours each at most) must pass: how body-to-sound feels on each webcam, how closely a spoken promise and its effect line up, a long run with deliberate stalls and no audio dropouts, and the audio floor on Goni's Windows machines. A test that fails switches to the fallback already written next to it.</p>
+
+      <ol class="steps">
+        <li>
+          <h4>The first playable</h4>
+          <p>Within hours, once this revision lands. It is the smallest thing Goni can touch and judge "better or worse than the old one".</p>
+          <ul>
+            <li>Wordless and immersive: no command, no legend, no meters on the player's screen. The developer readouts are hidden by default.</li>
+            <li>The whole body plays: hands, fingers, torso and head drive the sound, so Goni can compare body against body with the old system.</li>
+            <li>It moves by itself: one binding arms over time (silent at first, then a gesture starts to answer), the chords move on by themselves, and the sound is trippy: delay with feedback, a phaser or chorus, slow evolving modulation.</li>
+            <li>Space pauses and resumes; r resets fast.</li>
+            <li>Any machine's webcam: shown on the Mac first, then the same build runs on Goni's laptop. No model, no voice, and nothing leaves the machine.</li>
+          </ul>
+        </li>
+        <li>
+          <h4>The walking skeleton</h4>
+          <ul>
+            <li>The scripted moment: "Now we'll hear a sound (a chime). Now move your fingertips (spreading them opens the filter). That's you." Then it asks rather than tells: "what do you hear?"</li>
+            <li>Core play, here and not later: movements bind and release like an auto-DJ, the music progresses, and a beat arrives when movement builds.</li>
+            <li>The developer screen, never on the player's: the camera with the pose drawn over it, the body story, the current vision description, plus pause and resume (it starts paused), a quick reset, and hand edits mid-run.</li>
+            <li>It passes when the four first tests pass, every promise fires, a promise and its effect are at most 150 ms apart, the deliberate failure tests pass, and an hour-long run has zero dropouts.</li>
+          </ul>
+        </li>
+        <li>
+          <h4>Then, in order</h4>
+          <ul>
+            <li>listening;</li>
+            <li>the mind, with the psychological layer at its core from the start;</li>
+            <li>the image that reacts to the person, including the amorphous image drawn from speech;</li>
+            <li>speaking over the room to interrupt it;</li>
+            <li>generated sound worlds on top of the bindings and the beat;</li>
+            <li>the thread from cues to release, spoken partly through symbols.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Settled decisions</h3>
+      <dl class="doors">
+        <div>
+          <dt>Language</dt>
+          <dd>Hebrew and English from day one, with no first pick.
+            <span class="he-quote">"אתה אמור שיהיה לך את שניהם מההתחלה, ולא להתעכב על השאלה הזאת יותר"</span></dd>
+        </div>
+        <div>
+          <dt>Cloud text and speech</dt>
+          <dd>Used as needed, with no case-by-case approval.</dd>
+        </div>
+        <div>
+          <dt>Body tracking on a rented GPU</dt>
+          <dd>Used as needed, with no case-by-case approval.</dd>
+        </div>
+        <div>
+          <dt>Voice to hosted speech recognition</dt>
+          <dd>Used as needed. A test still checks whether a local option keeps up.</dd>
+        </div>
+        <div>
+          <dt>Camera frames to a cloud vision model</dt>
+          <dd>Used as needed.</dd>
+        </div>
+        <div>
+          <dt>One machine</dt>
+          <dd>One GPU machine runs the whole session. Revisit only if a second machine is added.</dd>
+        </div>
+        <div>
+          <dt>Distress with nobody in the room</dt>
+          <dd>Nobody is notified and there is no distress handling; this is a research system. The session ends when the person leaves or the arc completes.</dd>
+        </div>
+        <div>
+          <dt>"Psychedelic" in the opening</dt>
+          <dd>The word stays, in the opening said at the start of every session. Still no drug or medical claim.</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="v1.2/" dir="ltr">the earlier version (v1.2)</a>
+  </div>
+</footer>
+
+</body>
+</html>
